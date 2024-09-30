@@ -1,0 +1,53 @@
+﻿@using WebApplication1.Models;
+@model WebApplication1.Models.SanPham
+@{
+    ViewBag.Title = "Index";
+}
+@Html.Partial("left-sidebar")
+
+<div class="col-sm-9 padding-right">
+    <div class="product-details">
+        <!--product-details-->
+        <div class="col-sm-5">
+            <div class="view-product">
+                <img src="@Model.hinhDD" alt="" />
+                <h3>Phóng to</h3>
+            </div>
+
+
+        </div>
+        <div class="col-sm-7">
+            <div class="product-information">
+                <!--/product-information-->
+                <img src="~/Asset/Images/product-details/new.jpg" class="newarrival" alt="" />
+                <h2 style="color:red"></h2>
+                @Model.tenSP
+
+                <p>@Model.maSP</p>
+                <img src="~/Asset/Images/product-details/rating.png" alt="" />
+                <br />  <br />
+                <span>
+                    <span>@Model.giaBan</span>
+
+
+
+                    <label>Quantity:</label>
+                    <input type="text" value="3" />
+                    @using (Html.BeginForm("AddToCar", "Index", FormMethod.Post))
+                    {
+                        <input name="maSP" type="hidden" value="@Model.maSP" />
+                        <button class="btn btn-primary">Chọn mua</button>
+
+
+                    }
+                </span>
+                <p><b>Availability:</b> In Stock</p>
+                <p><b>Condition:</b> New</p>
+                <p><b>Brand:</b> E-SHOPPER</p>
+                <a href=""><img src="~/Asset/Images/product-details/share.png" class="share img-responsive" alt="" /></a>
+            </div><!--/product-information-->
+        </div>
+    </div>
+    }
+</div>
+

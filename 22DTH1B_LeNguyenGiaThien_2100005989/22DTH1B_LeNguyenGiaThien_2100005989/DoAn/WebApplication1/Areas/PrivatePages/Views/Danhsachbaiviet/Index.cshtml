@@ -1,0 +1,75 @@
+﻿@using WebApplication1.Models;
+@{
+    ViewBag.Title = "Index";
+    List<BaiViet> ds = (List<BaiViet>)ViewData["DanhSachBV"];
+
+}
+
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Danh sách bài viết</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Quản trị</a></li>
+                        <li class="breadcrumb-item active">Danh sách bài viết đã duyệt</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <div class="card-body">
+            <table id="example2" class="table table-bordered table-hover">
+
+                <thead>
+                    <tr>
+
+                        <th>Tên bài viết</th>
+                        <th>Ngày đăng</th>
+                        <th>Tài Khoản</th>
+
+                        <th>Số lần đọc</th>
+                        <th>Lệnh Công cụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @{
+                            foreach (BaiViet i in ds)
+                            {
+                            <tr>
+
+                                <td>@i.tenBV</td>
+                                <td>@string.Format("{0: hh:mm [dd/MM/yyyy] }", i.ngayDang)</td>
+                                <td>@i.TaiKhoan1.hoDem @i.TaiKhoan1.tenTV</td>
+                                <td>@i.solandoc</td>
+
+                                <td>
+                                    @using (Html.BeginForm("Active", "Danhsachbaiviet", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="maBaiViet" value="@i.maBV" />
+                                        <button class="btn btn-success" title="Cho phép hiển thị bài viết trên các trang công khai">@ViewBag.tdCuaNut</button>
+                                    }
+
+                                    <button class="btn btn-default" title="Cho phép sửa bài viết ..">Sửa nội dung</button>
+                                    @using (Html.BeginForm("Delete", "Danhsachbaiviet", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="maBaiviet" value="@i.maBV" />
+                                        <button class="btn btn-danger" title="xóa bài viết ">xóa</button>
+
+                                    }
+                                </td>
+                            </tr>
+                            }
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </section>

@@ -1,0 +1,6 @@
+Đang nhập vào database và chạy SQL ở trên để kết nối vào visua code
+liên kết với visua code với database đặt tên ShopOnlineConnet để có thể chuyển từ dữ liệu SQL và gọi ra bên ngoài visua code sử dụng 
+nếu muôn đặt tên khác cần sữa lại những tên gọi database trong các hàm sữ lý ShopOnlineConnet thành tên nào mà mình đặtt
+
+
+cảm ơn các thầy cô đã xem

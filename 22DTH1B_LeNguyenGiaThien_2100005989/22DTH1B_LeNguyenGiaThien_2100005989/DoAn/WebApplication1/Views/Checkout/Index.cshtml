@@ -1,0 +1,177 @@
+﻿@using WebApplication1.Models;
+@model WebApplication1.Models.KhachHang
+@{
+    ViewBag.Title = "Index";
+    Cart x = ViewData["Cart"] as Cart;
+}
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Check out</li>
+            </ol>
+        </div><!--/breadcrums-->
+
+
+
+        <div class="register-req">
+            <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
+        </div><!--/register-req-->
+
+        <div class="shopper-informations">
+            @using (Html.BeginForm("SaveToDataBase", "Checkout", FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="bill-to">
+                        <p>Thông tin khách hàng </p>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="hoTen">Họ tên khách hàng </label>
+
+                                @Html.TextBoxFor(m => m.tenKH, new { @class = "form-control", @placeholder = "Display Name" })
+                            </div>
+                            <div class="form-group" style="margin-bottom : 0 ">
+                                <label class="radio-inline">  @Html.RadioButtonFor(m => m.gioiTinh, new { @name = "gioiTinh" })Nam</label>
+                                <label class="radio-inline">@Html.RadioButton("gioiTinh", false)Nữ</label>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="ngaySinh">Ngay sinh</label>
+                                @Html.TextBoxFor(m => m.ngaySinh, new { @type = "date", @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <a href="@Url.Action("Index","Cart")" class="btn btn-default">&lt;&lt;Quay lại giỏ hàng</a>
+                                <button  class="btn btn-success" ><a href="@Url.Action("Index","Thanhcong")">Thanh Toán</a></button>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <p>Thông tin liên lạc</p>
+
+                            <div class="form-group">
+                                <label for="soDt">Số điện thoại</label>
+
+                                @Html.TextBoxFor(m => m.soDT, new { @type = "tel", @class = "form-control", @placeholder = "You phone number" })
+                            </div>
+                            <div class="form-group">
+                                <label for="mail">Email address</label>
+
+                                @Html.TextBoxFor(m => m.email, new { @type = "email", @class = "form-control", @placeholder = "Email address" })
+                            </div>
+                            <div class="form-group">
+                                <label for="addr">Địa chỉ giao hàng </label>
+
+
+                                @Html.TextBoxFor(m => m.diaChi, new { @type = "text", @class = "form-control", @placeholder = "Customer address" })
+
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="order-message">
+                            <p>Nhập ghi chú thông tin</p>
+                            <textarea name="message" placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
+                            <label><input type="checkbox"> Shipping to bill address</label>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="review-payment">
+            <h2>Review & Payment</h2>
+        </div>
+
+
+    
+
+
+            <div class="table-responsive cart_info">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr class="cart_menu">
+                            <td class="image">Item</td>
+
+                            <td class="price">Price</td>
+                            <td class="quantity">Quantity</td>
+                            <td class="total">Total</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{
+                            foreach (CtDonHang i in x.SanPhamDC.Values)
+                            {
+                                <tr>
+                                    <td class="cart_product">
+                                        <a href=""><img src="@Conmon.getimagesOfProducByID(i.maSP)" alt=""></a>
+                                    </td>
+                                    <td class="cart_description">
+                                        <h4><a href="">@Conmon.getNameProductBYID(i.maSP)</a></h4>
+                                        <p>@i.maSP</p>
+                                    </td>
+                                    <td class="cart_price">
+                                        <p>@i.giaBan</p>
+
+                                    </td>
+                                    <td class="cart_quantity">
+                                        <div class="cart_quantity_button">
+
+
+                                            <input class="cart_quantity_input" type="text" name="quantity" value="@i.soLuong" autocomplete="off" size="2">
+
+
+                                        </div>
+                                    </td>
+                                    <td class="cart_total">
+                                        <p class="cart_total_price">@x.moneyOfOneProduct(i)</p>
+                                    </td>
+                                    <td class="cart_delete">
+                                        <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i> </a>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+
+                </table>
+
+            </div>
+            <div class="col-sm-12">
+                <div class="total_area">
+                    <ul>
+                        <li>Tổng trị giá <span style="color : red">@x.totalOfCartShop()</span></li>
+                        <li>Thuế VAT 10PT <span style="color : red">@((x.totalOfCartShop()*10)/100)</span></li>
+                        <li>Phí giao hàng <span style="color : red">Free</span></li>
+                        <li>Tổng thành tiền <span style="color : red">@(x.totalOfCartShop()+(x.totalOfCartShop()*10)/100)</span></li>
+                    </ul>
+
+                </div>
+            </div>
+
+
+
+
+
+            <div class="payment-options">
+                <span>
+                    <label><input type="checkbox"> Direct Bank Transfer</label>
+                </span>
+                <span>
+                    <label><input type="checkbox"> Check Payment</label>
+                </span>
+                <span>
+                    <label><input type="checkbox"> Paypal</label>
+                </span>
+            </div>
+  
+    </div>
+</section> <!--/#cart_items-->

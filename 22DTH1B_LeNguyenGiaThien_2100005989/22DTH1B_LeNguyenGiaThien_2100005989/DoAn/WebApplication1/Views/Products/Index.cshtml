@@ -1,0 +1,60 @@
+﻿
+@model  PagedList.IPagedList<SanPham>
+
+@using WebApplication1.Models;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+@Html.Partial("left-sidebar")
+<div class="col-sm-9 padding-right">
+    <div class="features_items">
+        <!--features_items-->
+        <h2 class="title text-center">Features Items</h2>
+        <div class="col-sm-9 padding-right">
+            <div class="features_items">
+                <!--features_items-->
+                <h2 class="title text-center">Features Items</h2>
+                @{
+                    foreach (var i in Model)
+                    {
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="@i.hinhDD" alt="" />
+                                        <h2>
+                                            @i.giaBan
+                                        </h2>
+                                        <p>@i.tenSP</p>
+                                        <a href="~/Detail/index?id=@i.maSP" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    </div>
+                                    <div class="product-overlay">
+                                        <div class="overlay-content">
+                                            <h2>$56</h2>
+                                            <p>Easy Polo Black Edition</p>
+                                            <a href="~/Detail/index?id=@i.maSP" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                @using (Html.BeginForm("AddToCar", "Index", FormMethod.Post))
+                                {
+                                    <input name="maSP" type="hidden" value="@i.maSP" />
+                                    <button class="btn btn-primary">Chọn mua</button>
+                                }
+                            </div>
+
+                        </div>
+                    }
+                }
+            </div>
+            <div class="pagination">
+                page @(Model.PageCount < Model.PageNumber ?0: Model.PageNumber)/@Model.PageCount
+                       @Html.PagedListPager(Model,Page => Url.Action("Index",new {Page = Page})) 
+            </div>
+        </div>
+    </div>
+</div>
+

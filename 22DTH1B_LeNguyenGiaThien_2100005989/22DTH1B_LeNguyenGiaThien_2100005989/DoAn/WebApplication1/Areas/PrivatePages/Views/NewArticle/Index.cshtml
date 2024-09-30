@@ -1,0 +1,125 @@
+﻿@model WebApplication1.Models.BaiViet
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container-fluid">
+
+    @using (Html.BeginForm("Index", "NewArticle", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-8">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Thông tin chính</h3>
+                    </div>
+                    <!-- /.card-header -->
+                   
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Tên bài viết</label>
+                                @Html.TextBoxFor(m => m.tenBV, new { @class = "form-control", @placeholder = "Tên bài viết tối đa 35 ký tự" })
+
+                            </div>
+                            <div class="form-group">
+                                <label for="ndtt">Nội dung tóm tắt</label>
+                                @Html.TextAreaFor(m => m.ndTomTat, new { @rows = "5", @class = "form-control", @placeholder = "Tên bài viết tối đa 100 ký tự" })
+
+                            </div>
+                            <div class="form-group">
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Ngày đăng</label>
+                                        @Html.TextBoxFor(m => m.ngayDang, new { @class = "form-control", @disabled = "dissabled" })
+
+                                    </div>
+                                    <!-- /.form-group -->
+                                    <div class="form-group">
+                                        <label>Kiểm duyệt bài viết</label>
+                                        <br /> <input type="checkbox" class="form" id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1"> Đã duyệt</label>
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Tài khoản</label>
+                                        @Html.TextBoxFor(m => m.taiKhoan, new { @class = "form-control", @disabled = "dissabled" })
+
+                                    </div>
+                                    <!-- /.form-group -->
+                                    <div class="form-group">
+                                        <label>Số lần đọc </label>
+                                        @Html.TextBoxFor(m => m.solandoc, new { @class = "form-control", @disabled = "dissabled" })
+
+                                    </div>
+                                    <!-- /.form-group -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.card-body -->
+                    
+                </div>
+            </div>
+            <!-- Right column -->
+            <div class="col-md-4">
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h3 class="card-title">General Elements</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="col-sm-12">
+                            <img src="@ViewBag.ddHinh" style="width: 100px" />
+                            <label for="exampleInputFile">File input</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="exampleInputFile" name="HinhDaiDien">
+                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="">Upload</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+           
+
+            </div>
+            <div class="col-md-12">
+                <div class="card- card-primary">
+                    <h3 class="card-title">Nội dung bài viết</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="form-group">
+                            @Html.TextAreaFor(m => m.noiDung, new
+                            {
+                                @class = "TextAreaFor",
+                                @placeholder = "Place some next here",
+                           @style = "width: 100%; font-size: 14px; height: 600px; " +
+                           "line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
+                            })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <button class="btn btn-success">Đăng bài</button>
+            </div>
+        </div>
+
+    }
+
+</div>
+

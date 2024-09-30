@@ -1,0 +1,167 @@
+﻿@model  PagedList.IPagedList<SanPham>
+@using WebApplication1.Models;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+@Html.Partial("left-sidebar")
+<div class="col-sm-9 padding-right">
+    <div class="features_items">
+        <!--features_items-->
+        <h2 class="title text-center">Features Items</h2>
+        @{
+            foreach (var i in Model)
+            {
+                <div class="col-sm-4">
+                    <div class="product-image-wrapper">
+                        <div class="single-products">
+                            <div class="productinfo text-center">
+                                <img src="@i.hinhDD" alt="" />
+                                <h2>
+                                    @i.giaBan
+                                </h2>
+                                <p>@i.tenSP</p>
+                                <a href="~/Detail/index?id=@i.maSP" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Chi tiếc sản ph</a>
+                            </div>
+
+                        </div>
+                        @using (Html.BeginForm("AddToCar", "Index", FormMethod.Post))
+                        {
+                            <input name="maSP" type="hidden" value="@i.maSP" />
+                            <button class="btn btn-primary">Chọn mua</button>
+
+
+                        }
+
+
+
+
+                    </div>
+                </div>
+
+            }
+
+
+        }
+    </div>
+    <div class="pagination">
+        page @(Model.PageCount < Model.PageNumber ?0: Model.PageNumber)/@Model.PageCount
+        @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page = Page }))
+
+
+    </div>
+
+    <div class="recommended_items">
+        <!--recommended_items-->
+        <h2 class="title text-center">recommended items</h2>
+
+        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="item active">
+                    @{
+                        foreach (SanPham i in Model)
+                        {
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="@i.hinhDD" alt="" />
+                                            <h2>   @i.giaBan</h2>
+                                            <p>@i.tenSP</p>
+                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+
+                    }
+
+
+                </div>
+
+            </div>
+            <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </div><!--/recommended_items-->
+
+</div>
+
+@section Banner{
+    <section id="slider">
+        <!--slider-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#slider-carousel" data-slide-to="1"></li>
+                            <li data-target="#slider-carousel" data-slide-to="2"></li>
+                        </ol>
+
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <div class="col-sm-6">
+                                    <h1><span>T</span>-ShopGT</h1>
+                                    <h2>Mẫu Iphone chi phí rẻ nhất</h2>
+                                    <p>Các mẫu iphone mới ra lò của nhà táo sang trong , đẹp đẻ cho người dùng sở hữu với mức giá ư đãi</p>
+                                    <button type="button" class="btn btn-default get">Get it now</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <img src="~/Asset/Images/Iphone/Hình 1.jpg" class="girl img-responsive" alt="" />
+
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="col-sm-6">
+                                    <h1><span>T</span>-ShopGT</h1>
+                                    <h2>Chương trình giảm giá 10%</h2>
+                                    <p>Các mẫu Iphone sang trọng , đẹp mắt được giảm giá 10% khi thanh toán ngay tại quày giao dịch  </p>
+                                    <button type="button" class="btn btn-default get">Get it now</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <img src="~/Asset/Images/Iphone/Hình 2.jpg" class="girl img-responsive" alt="" />
+
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <div class="col-sm-6">
+                                    <h1><span>T</span>-ShopGT</h1>
+                                    <h2>Trả góp 0% đén với shop chúng tôi</h2>
+                                    <p>Lại suất được tài trợ từ các nhãn hàng</p>
+                                    <button type="button" class="btn btn-default get">Get it now</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <img src="~/Asset/Images/Iphone/Hình 3.png" class="girl img-responsive" alt="" />
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section><!--/slider-->
+
+}
